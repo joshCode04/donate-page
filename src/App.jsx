@@ -1,4 +1,5 @@
 import DonatePage from "./Donate/DonatePage";
+import Footer from "./Donate/Footer";
 import Nav from "./Donate/Nav";
 
 export default function App() {
@@ -9,6 +10,9 @@ export default function App() {
       </section>
       <section>
         <DonatePage />
+      </section>
+      <section>
+        <Footer />
       </section>
     </section>
   );
