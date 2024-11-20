@@ -13,9 +13,9 @@ const DonatePage = () => {
   const [copySuccess, setCopySuccess] = useState("");
 
   const addresses = {
-    bitcoin: "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
-    ethereum: "0x32Be343B94f860124dC4fEe278FDCBD38C102D88",
-    usdt: "TGvz9HF3X95rSzLNB89gUYKWrNGsKDtbMJ",
+    bitcoin: "bc1qvmxxf68azj79nyhx8u0zsk60zsctyx3dnsvx6n",
+    ethereum: "0x54965f96Ea3fb93FAD15411a5Cd8B85C5Ca9052F",
+    usdt: "0x54965f96Ea3fb93FAD15411a5Cd8B85C5Ca9052F",
   };
 
   const cryptoOptions = [
