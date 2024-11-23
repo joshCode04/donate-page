@@ -11,6 +11,12 @@ const DonatePage = () => {
   const [selectedCrypto, setSelectedCrypto] = useState("bitcoin");
   const [selectedPayment, setSelectedPayment] = useState("crypto");
   const [copySuccess, setCopySuccess] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
 
   const addresses = {
     bitcoin: "bc1qvmxxf68azj79nyhx8u0zsk60zsctyx3dnsvx6n",
@@ -32,7 +38,21 @@ const DonatePage = () => {
     setTimeout(() => setCopySuccess(""), 2000);
   };
 
-  // Custom styles for react-select
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleDonate = () => {
+    // Show success popup and reset form
+    setShowPopup(true);
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+    });
+  };
+
   const customStyles = {
     option: (provided) => ({
       ...provided,
@@ -89,89 +109,106 @@ const DonatePage = () => {
           ))}
         </div>
 
-        {/* Conditional Rendering for Payment Option */}
-        {/* Use transition animation for swipe effect */}
-        <div
-          className={`transition-transform duration-500 ease-in-out ${
-            selectedPayment === "crypto"
-              ? "transform translate-x-0"
-              : "transform translate-x-full"
-          }`}
-        >
-          {selectedPayment === "crypto" && (
-            <>
-              <p className="text-gray-600 mb-4">Choose a cryptocurrency:</p>
-              <Select
-                options={cryptoOptions}
-                value={cryptoOptions.find(
-                  (option) => option.value === selectedCrypto
-                )}
-                onChange={(option) => setSelectedCrypto(option.value)}
-                styles={customStyles}
-                formatOptionLabel={formatOptionLabel}
-                className="mb-4"
-              />
+        {/* Form Content */}
+        {selectedPayment === "crypto" && (
+          <>
+            <p className="text-gray-600 mb-4">Choose a cryptocurrency:</p>
+            <Select
+              options={cryptoOptions}
+              value={cryptoOptions.find(
+                (option) => option.value === selectedCrypto
+              )}
+              onChange={(option) => setSelectedCrypto(option.value)}
+              styles={customStyles}
+              formatOptionLabel={formatOptionLabel}
+              className="mb-4"
+            />
 
-              <div className="mb-6">
-                <p className="text-gray-800 mb-2">Wallet Address:</p>
-                <div className="flex items-center justify-between bg-gray-100 p-3 rounded-lg">
-                  <span className="text-gray-700 truncate">
-                    {addresses[selectedCrypto]}
-                  </span>
-                  <button
-                    onClick={handleCopyAddress}
-                    className="text-white bg-green-600 hover:bg-green-700 px-2 py-1 rounded-md text-sm"
-                  >
-                    Copy
-                  </button>
-                </div>
-                {copySuccess && (
-                  <p className="text-green-600 mt-2 text-sm">{copySuccess}</p>
-                )}
+            <div className="mb-6">
+              <p className="text-gray-800 mb-2">Wallet Address:</p>
+              <div className="flex items-center justify-between bg-gray-100 p-3 rounded-lg">
+                <span className="text-gray-700 truncate">
+                  {addresses[selectedCrypto]}
+                </span>
+                <button
+                  onClick={handleCopyAddress}
+                  className="text-white bg-green-600 hover:bg-green-700 px-2 py-1 rounded-md text-sm"
+                >
+                  Copy
+                </button>
               </div>
-            </>
-          )}
-        </div>
-
-        <div
-          className={`transition-transform duration-500 ease-in-out ${
-            selectedPayment === "paypal"
-              ? "transform translate-x-0"
-              : "transform translate-x-full"
-          }`}
-        >
-          {selectedPayment === "paypal" && (
-            <div className="text-center mb-6">
-              <p className="text-gray-700 mb-4">Donate via PayPal</p>
-              <button className="bg-blue-600 text-white w-full py-2 rounded-lg font-medium hover:bg-blue-700">
-                Proceed with PayPal
-              </button>
+              {copySuccess && (
+                <p className="text-green-600 mt-2 text-sm">{copySuccess}</p>
+              )}
             </div>
-          )}
-        </div>
 
-        <div
-          className={`transition-transform duration-500 ease-in-out ${
-            selectedPayment === "gpay"
-              ? "transform translate-x-0"
-              : "transform translate-x-full"
-          }`}
-        >
-          {selectedPayment === "gpay" && (
-            <div className="text-center mb-6">
-              <p className="text-gray-700 mb-4">Donate via Google Pay</p>
-              <button className="bg-green-500 text-white w-full py-2 rounded-lg font-medium hover:bg-green-600">
-                Proceed with GPay
-              </button>
+            {/* Billing Details */}
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold text-gray-800 mb-4">
+                Billing Details
+              </h2>
+              <div className="space-y-4">
+                {["firstName", "lastName", "email"].map((field) => (
+                  <div key={field}>
+                    <label
+                      htmlFor={field}
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      {field === "firstName"
+                        ? "First Name"
+                        : field === "lastName"
+                        ? "Last Name"
+                        : "Email Address"}
+                    </label>
+                    <input
+                      type={field === "email" ? "email" : "text"}
+                      id={field}
+                      value={formData[field]}
+                      onChange={handleInputChange}
+                      placeholder={`Enter your ${
+                        field === "email"
+                          ? "email address"
+                          : field === "firstName"
+                          ? "first name"
+                          : "last name"
+                      }`}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          )}
-        </div>
+          </>
+        )}
 
         {/* Donate Now Button */}
-        <button className="w-full py-3 mt-4 bg-[#7FC034] text-white rounded-lg font-semibold text-lg hover:bg-[#6AB02F] transition-colors duration-300">
+        <button
+          onClick={handleDonate}
+          className="w-full py-3 mt-4 bg-[#7FC034] text-white rounded-lg font-semibold text-lg hover:bg-[#6AB02F] transition-colors duration-300"
+        >
           Donate Now
         </button>
       </div>
+
+      {/* Success Popup */}
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+            <h2 className="text-2xl font-bold text-green-600 mb-4">
+              Donation Successful!
+            </h2>
+            <p className="text-gray-700 mb-6">
+              Thank you for supporting our cause!
+            </p>
+            <button
+              onClick={() => setShowPopup(false)}
+              className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
