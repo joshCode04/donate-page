@@ -73,6 +73,15 @@ const DonatePage = () => {
     </div>
   );
 
+  const handleClosePopup = () => {
+    // Close the popup
+    setShowPopup(false);
+
+    // Redirect to a website
+    window.location.href =
+      "https://websitedemos.net/non-profit-organization-04/"; // Replace with your desired URL
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#F0F4EC] to-[#F7F9F1] flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-[#FFFFFF] p-8 rounded-lg shadow-2xl transform transition duration-500 hover:scale-105">
@@ -197,11 +206,22 @@ const DonatePage = () => {
             <h2 className="text-2xl font-bold text-green-600 mb-4">
               Donation Successful!
             </h2>
-            <p className="text-gray-700 mb-6">
-              Thank you for supporting our cause!
-            </p>
+            {selectedPayment === "paypal" || selectedPayment === "gpay" ? (
+              <p className="text-gray-700 mb-6">
+                Thank you for supporting our cause! If you have any issues,
+                please{" "}
+                <a href="" className="text-blue-600 underline">
+                  contact Support
+                </a>
+                .
+              </p>
+            ) : (
+              <p className="text-gray-700 mb-6">
+                Thank you for supporting our cause!
+              </p>
+            )}
             <button
-              onClick={() => setShowPopup(false)}
+              onClick={handleClosePopup}
               className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
             >
               Close
