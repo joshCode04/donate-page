@@ -6,6 +6,7 @@ import PayPalIcon from "/PayPal.png";
 import BitcoinIcon from "/bitcoin.png";
 import EthereumIcon from "/ethereum.png";
 import UsdtIcon from "/USDT.png";
+import TawkToChat from "../TawkToChat";
 
 const DonatePage = () => {
   const [selectedCrypto, setSelectedCrypto] = useState("bitcoin");
@@ -77,12 +78,12 @@ const DonatePage = () => {
     // Close the popup
     setShowPopup(false);
     // Redirect to main website
-    window.location.href =
-      "https://websitedemos.net/non-profit-organization-04/";
+    window.location.href = "http://rencharityfoundation.com";
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#F0F4EC] to-[#F7F9F1] flex items-center justify-center p-6">
+      <TawkToChat />
       <div className="w-full max-w-md bg-[#FFFFFF] p-8 rounded-lg shadow-2xl transform transition duration-500 hover:scale-105">
         <h1 className="text-3xl font-semibold text-[#2C3A04] mb-4 text-center">
           Support Our Cause
