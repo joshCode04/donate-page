@@ -221,8 +221,13 @@ const DonatePage = () => {
                 >
                   contact Support
                 </a>{" "}
-                either via email admin@………. Or via the live chat to get the
-                required information to complete the donation process. .
+                either via email{" "}
+                <a href="mailto:admin@rencharityfoundation.com">
+                  {" "}
+                  admin@rencharityfoundation.com
+                </a>{" "}
+                Or via the live chat to get the required information to complete
+                the donation process. .
               </p>
             ) : (
               <p className="text-gray-700 mb-6">
