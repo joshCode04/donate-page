@@ -215,7 +215,10 @@ const DonatePage = () => {
             {selectedPayment === "paypal" || selectedPayment === "gpay" ? (
               <p className="text-gray-700 mb-6">
                 Thanks you for your desire to support our cause! Please{" "}
-                <a href="" className="text-blue-600 underline">
+                <a
+                  href="mailto:admin@rencharityfoundation.com"
+                  className="text-blue-600 underline"
+                >
                   contact Support
                 </a>{" "}
                 either via email admin@………. Or via the live chat to get the
